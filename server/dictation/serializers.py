@@ -14,8 +14,15 @@ class DictationSerializer(serializers.ModelSerializer):
         fields = ['id', 'audio_file', 'transcript']
 
 
-class LessonSerializer(serializers.ModelSerializer):
-    dictations = DictationSerializer(many=True, read_only=True)
+
+class LessonListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = ['id', 'name', 'dictations']
+        fields = ['id', 'name', 'created_at', 'updated_at']
+
+class LessonDetailSerializer(serializers.ModelSerializer):
+    dictations = DictationSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Lesson
+        fields = ['id', 'name', 'created_at', 'updated_at', 'dictations']
